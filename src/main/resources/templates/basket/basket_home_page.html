@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Basket Home Page
+    <p>Basket</p>
+    <div>
+        <table id="listOfItems" border="1px" cellpadding="10px">
+            <thead>
+                    <td>Item</td>
+                    <td>Quantity</td>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${basket}">
+                    <td th:text="${item.key}"></td>
+                    <td th:text="${item.value}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        <span><a th:href="@{/basket/buy}">Buy Now</a></span>
+        <span><a th:href="@{/shop/shopping}">Continue Shopping</a></span>
+    </p>
+</body>
+</html>
