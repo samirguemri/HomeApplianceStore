@@ -88,4 +88,13 @@ public class BasketController {
         return "redirect:/shop/shopping/validation";
     }
 
+    @GetMapping("/payment")
+    public String paymentPage(){
+        return "shop/payment";
+    }
+
+    @GetMapping("/payment/bill")
+    public String invoicePage(){
+        return "shop/bill";
+    }
 }
