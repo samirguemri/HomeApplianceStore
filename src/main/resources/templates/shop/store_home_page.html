@@ -24,7 +24,14 @@
                 <td th:text="${product.name}"/>
                 <td th:text="${product.description}"/>
                 <td th:text="${product.price}"/>
-                <td><a th:href="@{/product/display/__${product.productRef}__}">Display</a><br/></td>
+                <td th:with="productRef=${product.productRef}">
+                    <form action="#" th:action="@{/product/display/__${productRef}__}" method="post">
+                        <input type="submit" value="Display"/>
+                    </form>
+                    <form action="#" th:action="@{/basket/add/__${productRef}__/1}" method="post">
+                        <input type="submit" value="Add To Basket"/>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>

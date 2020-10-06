@@ -22,7 +22,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/display/{productRef}")
+    @PostMapping("/display/{productRef}")
     public String displayProduct(@PathVariable LocalUniqueId productRef, Model model){
         Product product  = productService.getProduct(productRef);
         Field[] abstractObjectFields = Product.class.getDeclaredFields();

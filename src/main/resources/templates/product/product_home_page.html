@@ -38,12 +38,10 @@
         </table>
     </div>
     <br>
-    <form action="#" th:action="@{/basket/add/__${product.productRef}__}" method="post">
+    <form action="#" method="post">
         <input id="quantity" type="number" min="1" max="10" value="1" size="3px" name="quantity" />
-        <input type="submit" value="Add To Basket">
+        <input type="submit" value="Buy Now" th:formaction="@{/basket/buy/__${product.productRef}__}">
+        <input type="submit" value="Add To Basket" th:formaction="@{/basket/add/__${product.productRef}__}">
     </form>
-    <p>
-        <a href="###"><button value="">Buy Now</button></a>
-    </p>
 </body>
 </html>

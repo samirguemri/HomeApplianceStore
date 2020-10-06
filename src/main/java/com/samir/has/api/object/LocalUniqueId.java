@@ -3,6 +3,7 @@ package com.samir.has.api.object;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.security.SecureRandom;
+import java.util.Objects;
 import java.util.UUID;
 
 public class LocalUniqueId {
@@ -28,8 +29,20 @@ public class LocalUniqueId {
         return uid = divided[0];
     }
 
-    public boolean equals(LocalUniqueId luid){
-        return this.uid.equals(luid.uid);
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof LocalUniqueId))
+            return false;
+        return this.uid.equals( ( (LocalUniqueId) obj).uid);
     }
 
     @Override
@@ -37,8 +50,7 @@ public class LocalUniqueId {
         return uid;
     }
 
-
-
+    /*
     private static final String AB = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static SecureRandom rnd = new SecureRandom();
 
@@ -49,5 +61,5 @@ public class LocalUniqueId {
             sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
         return sb.toString();
     }
-
+    */
 }

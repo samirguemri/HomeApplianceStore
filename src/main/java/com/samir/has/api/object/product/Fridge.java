@@ -3,13 +3,13 @@ package com.samir.has.api.object.product;
 public class Fridge extends Product {
 
     private int capacity;
-    private boolean isFreezer;
+    private boolean freezer;
 
     public Fridge(String type, String name, String description, double price, int availableStock,
-                  int capacity, boolean isFreezer) {
+                  int capacity, boolean freezer) {
         super(type, name, description, price, availableStock);
         this.capacity = capacity;
-        this.isFreezer = isFreezer;
+        this.freezer = freezer;
     }
 
     public int getCapacity() {
@@ -21,11 +21,11 @@ public class Fridge extends Product {
     }
 
     public boolean isFreezer() {
-        return isFreezer;
+        return freezer;
     }
 
     public void setFreezer(boolean freezer) {
-        this.isFreezer = freezer;
+        this.freezer = freezer;
     }
 
     @Override

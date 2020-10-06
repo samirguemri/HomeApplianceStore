@@ -8,17 +8,23 @@
 </head>
 <body>
     Basket Home Page
-    <p>Basket</p>
     <div>
         <table id="listOfItems" border="1px" cellpadding="10px">
             <thead>
                     <td>Item</td>
                     <td>Quantity</td>
+                    <td>Action</td>
             </thead>
             <tbody>
                 <tr th:each="item : ${basket}">
-                    <td th:text="${item.key}"></td>
+                    <td><a th:href="@{/product/display/__${item.key}__}" th:text="${item.key}" /></td>
                     <td th:text="${item.value}"></td>
+                    <td>
+                        <form action="#" method="post">
+                            <input type="number" name="quantity" min="0" max="10" th:value="${item.value}" />
+                            <input type="submit" value="Update" th:formaction="@{/basket/update/__${item.key}__}">
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
