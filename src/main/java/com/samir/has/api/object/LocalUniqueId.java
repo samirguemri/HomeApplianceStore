@@ -3,38 +3,27 @@ package com.samir.has.api.object;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.xml.bind.annotation.XmlValue;
-import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.UUID;
 
 public class LocalUniqueId {
 
-    private static final String numbers = "0123456789";
-    private static final String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-
-    private static SecureRandom random = new SecureRandom();
-
-    private static String randomString(String str, int length){
-        StringBuilder strBuilder = new StringBuilder( length );
-        for( int i = 0; i < length; i++ )
-            strBuilder.append( str.charAt( random.nextInt(str.length()) ) );
-        return strBuilder.toString();
-    }
+    static int count =0;
 
     private final String defaultUid = UUID.randomUUID().toString();
-    private final String customerUid = randomString(numbers,4);
-    private final String invoiceUid = randomString(numbers,6);
-    private final String productUid = randomString(numbers,8);
+    private final String customerUid = UUID.randomUUID().toString();
+    private final String invoiceUid = UUID.nameUUIDFromBytes("0123456789".getBytes()).toString();
 
-    private final static int __DEFAULT__ = 0;
-    private final static int __CUSTOMER_ = 1;
+    private final static int __CUSTOMER__ = 1;
     private final static int __INVOICE__ = 2;
-    private final static int __PRODUCT__ = 3;
 
     @XmlValue
     @JsonProperty("uid")
     private String uid = null;
+
+    private LocalUniqueId(){
+        extractUId(0);
+    }
 
     public LocalUniqueId(String uid){
         this.uid = uid;
@@ -44,11 +33,9 @@ public class LocalUniqueId {
         extractUId(x);
         String suffix;
         switch (x){
-            case __CUSTOMER_:  suffix = "Cust_";
+            case __CUSTOMER__:  suffix = "CUST/";
                 break;
             case __INVOICE__:  suffix = "INV/";
-                break;
-            case __PRODUCT__:  suffix = "P_";
                 break;
             default: suffix = "";
         }
@@ -57,11 +44,9 @@ public class LocalUniqueId {
 
     private String  extractUId(final int x){
         switch (x){
-            case __CUSTOMER_:  uid = customerUid;
+            case __CUSTOMER__:  uid = customerUid;
                 break;
             case __INVOICE__:  uid = invoiceUid;
-                break;
-            case __PRODUCT__:  uid = productUid;
                 break;
             default: uid = defaultUid;
         }
@@ -70,19 +55,15 @@ public class LocalUniqueId {
     }
 
     public static LocalUniqueId randomUniqueId() {
-        return new LocalUniqueId(LocalUniqueId.__DEFAULT__);
+        return new LocalUniqueId();
     }
 
     public static LocalUniqueId randomCustomerUniqueId() {
-        return new LocalUniqueId(LocalUniqueId.__CUSTOMER_);
+        return new LocalUniqueId(LocalUniqueId.__CUSTOMER__);
     }
-
     public static LocalUniqueId randomInvoiceUniqueId() {
-        return new LocalUniqueId(LocalUniqueId.__INVOICE__);
-    }
-
-    public static LocalUniqueId randomProductUniqueId() {
-        return new LocalUniqueId(LocalUniqueId.__PRODUCT__);
+        LocalUniqueId uniqueId = new LocalUniqueId(LocalUniqueId.__INVOICE__);
+        return uniqueId;
     }
 
     @Override
@@ -105,5 +86,17 @@ public class LocalUniqueId {
     public String toString(){
         return uid;
     }
-    
+
+    /*
+    private static final String AB = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static SecureRandom rnd = new SecureRandom();
+
+    public static String randomString(){
+        int len = 8;
+        StringBuilder sb = new StringBuilder( len );
+        for( int i = 0; i < len; i++ )
+            sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+        return sb.toString();
+    }
+    */
 }
