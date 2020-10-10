@@ -20,12 +20,6 @@ public class HomeDelivery implements Delivery {
     }
 
     @Override
-    public void deliver() {}
-
-    @Override
-    public void deliver(String address) {}
-
-    @Override
     public HomeDelivery getImplementedObject() {
         return this;
     }

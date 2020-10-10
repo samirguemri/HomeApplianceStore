@@ -16,7 +16,7 @@ public abstract class Product<T extends Product> {
     @JsonProperty("availableStock") int availableStock;
 
     public Product(String productType, String name, String description, double price, int availableStock) {
-        this.productRef = LocalUniqueId.randomUniqueId();
+        this.productRef = LocalUniqueId.randomProductUniqueId();
         this.productType = productType;
         this.name = name;
         this.description = description;

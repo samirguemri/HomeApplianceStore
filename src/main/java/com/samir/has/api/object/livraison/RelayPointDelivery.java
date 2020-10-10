@@ -31,12 +31,6 @@ public class RelayPointDelivery implements Delivery {
     }
 
     @Override
-    public void deliver() {}
-
-    @Override
-    public void deliver(String address) {}
-
-    @Override
     public RelayPointDelivery getImplementedObject() {
         return this;
     }

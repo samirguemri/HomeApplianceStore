@@ -21,7 +21,7 @@ public class Customer {
     @JsonProperty("password") private String password;
 
     public Customer(String name, String address, String zip, String phoneNumber, String login, String password) {
-        this.customerId = LocalUniqueId.randomUniqueId();
+        this.customerId = LocalUniqueId.randomCustomerUniqueId();
         this.name = name;
         this.address = address;
         this.zip = zip;
@@ -31,7 +31,7 @@ public class Customer {
     }
 
     public Customer() {
-        this.customerId = LocalUniqueId.randomUniqueId();
+        this.customerId = LocalUniqueId.randomCustomerUniqueId();
         this.name = "Unknown";
         this.address = "Unknown";
         this.zip = "Unknown";

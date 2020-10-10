@@ -19,12 +19,6 @@ public class StorePickup implements Delivery {
     }
 
     @Override
-    public void deliver() { }
-
-    @Override
-    public void deliver(String address) { }
-
-    @Override
     public StorePickup getImplementedObject() {
         return this;
     }

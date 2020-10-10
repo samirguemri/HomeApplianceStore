@@ -28,12 +28,6 @@ public class ExpressHomeDelivery implements Delivery {
     }
 
     @Override
-    public void deliver() {}
-
-    @Override
-    public void deliver(String address) {}
-
-    @Override
     public ExpressHomeDelivery getImplementedObject() {
         return this;
     }
