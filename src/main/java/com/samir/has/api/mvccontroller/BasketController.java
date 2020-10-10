@@ -3,10 +3,12 @@ package com.samir.has.api.mvccontroller;
 
 import com.samir.has.api.object.Basket;
 import com.samir.has.api.object.LocalUniqueId;
+import com.samir.has.api.object.person.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 @Controller("mvcBasketController")
@@ -26,7 +28,7 @@ public class BasketController {
 
     @PostMapping("/add/{productRef}")
     public String  addProduct(@PathVariable LocalUniqueId productRef,
-                               @ModelAttribute("basket") Basket basket,
+                              @ModelAttribute("basket") Basket basket,
                               @RequestParam("quantity") int itemQuantity){
         int quantity = 0;
         if (basket.containsKey(productRef))
@@ -58,8 +60,8 @@ public class BasketController {
     }
 
     @GetMapping("/remove/{productRef}")
-    public String  removeProduct(@PathVariable LocalUniqueId productRef, Model model){
-        Basket basket = (Basket) model.getAttribute("basket");
+    public String  removeProduct(@PathVariable("productRef") LocalUniqueId productRef,
+                                 @ModelAttribute("basket") Basket basket){
         int quantity = basket.get(productRef) -1;
         if (quantity > 0)
             basket.replace(productRef, quantity);
@@ -69,7 +71,8 @@ public class BasketController {
     }
 
     @GetMapping("/buy")
-    public String  buyNow(@ModelAttribute("basket") Basket basket, RedirectAttributes redirectAttributes){
+    public String validationPage(@ModelAttribute("basket") Basket basket,
+                                 RedirectAttributes redirectAttributes){
         if (basket.size() != 0){
             redirectAttributes.addFlashAttribute("basket",basket);
             return "redirect:/shop/shopping/validation";
@@ -79,22 +82,33 @@ public class BasketController {
     }
 
     @PostMapping("/buy/{productRef}")
-    public String  buyNow(@PathVariable LocalUniqueId productRef,
-                          @RequestParam("quantity") int itemQuantity,
-                          @ModelAttribute("basket") Basket basket,
-                          RedirectAttributes redirectAttributes){
+    public String validationPage(@PathVariable LocalUniqueId productRef,
+                                 @RequestParam("quantity") int itemQuantity,
+                                 @ModelAttribute("basket") Basket basket,
+                                 RedirectAttributes redirectAttributes){
         basket.put(productRef,itemQuantity);
         redirectAttributes.addFlashAttribute("basket",basket);
         return "redirect:/shop/shopping/validation";
     }
 
-    @GetMapping("/payment")
-    public String paymentPage(){
+    @PostMapping("/payment")
+    public String paymentPage(@RequestParam("totalCost") float totalCost, Model model){
+        model.addAttribute("totalCost",totalCost);
         return "shop/payment";
     }
 
-    @GetMapping("/payment/bill")
-    public String invoicePage(){
-        return "shop/bill";
+    @PostMapping("/payment/invoice")
+    public String invoicePage(@RequestParam("delivery") String delivery,
+                              @RequestParam("totalCost") float totalCost,
+                              @ModelAttribute("connectedCustomer") Customer connectedCustomer,
+                              @ModelAttribute("basket") Basket basket,
+                              RedirectAttributes redirectAttributes){
+
+        redirectAttributes.addFlashAttribute("connectedCustomer",connectedCustomer);
+        redirectAttributes.addFlashAttribute("delivery",delivery);
+        redirectAttributes.addFlashAttribute("basket",basket);
+        redirectAttributes.addFlashAttribute("totalCost",totalCost);
+
+        return "redirect:/invoice/basket/invoice";
     }
 }

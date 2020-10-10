@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 <tr th:each="item : ${basket}">
-                    <td><a th:href="@{/product/display/__${item.key}__}" th:text="${item.key}" /></td>
+                    <td><a th:href="@{/product/display/__${item.key}__}" th:text="${item.key}" method="post" /></td>
                     <td th:text="${item.value}"></td>
                     <td>
                         <form action="#" method="post">

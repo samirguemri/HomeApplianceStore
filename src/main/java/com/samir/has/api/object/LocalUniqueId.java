@@ -2,31 +2,68 @@ package com.samir.has.api.object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.security.SecureRandom;
+import javax.xml.bind.annotation.XmlValue;
 import java.util.Objects;
 import java.util.UUID;
 
 public class LocalUniqueId {
 
-    private final UUID uuid = UUID.randomUUID();
-    @JsonProperty("uid") private String uid;
+    static int count =0;
+
+    private final String defaultUid = UUID.randomUUID().toString();
+    private final String customerUid = UUID.randomUUID().toString();
+    private final String invoiceUid = UUID.nameUUIDFromBytes("0123456789".getBytes()).toString();
+
+    private final static int __CUSTOMER__ = 1;
+    private final static int __INVOICE__ = 2;
+
+    @XmlValue
+    @JsonProperty("uid")
+    private String uid = null;
+
+    private LocalUniqueId(){
+        extractUId(0);
+    }
+
+    public LocalUniqueId(String uid){
+        this.uid = uid;
+    }
+
+    private LocalUniqueId(final int x){
+        extractUId(x);
+        String suffix;
+        switch (x){
+            case __CUSTOMER__:  suffix = "CUST/";
+                break;
+            case __INVOICE__:  suffix = "INV/";
+                break;
+            default: suffix = "";
+        }
+        uid = suffix.concat(uid);
+    }
+
+    private String  extractUId(final int x){
+        switch (x){
+            case __CUSTOMER__:  uid = customerUid;
+                break;
+            case __INVOICE__:  uid = invoiceUid;
+                break;
+            default: uid = defaultUid;
+        }
+        String[] divided = uid.split("-");
+        return uid = divided[0];
+    }
 
     public static LocalUniqueId randomUniqueId() {
         return new LocalUniqueId();
     }
 
-    public LocalUniqueId(String id){
-        uid = id;
+    public static LocalUniqueId randomCustomerUniqueId() {
+        return new LocalUniqueId(LocalUniqueId.__CUSTOMER__);
     }
-
-    private LocalUniqueId(){
-        extractUId();
-    }
-
-    private String extractUId(){
-        uid = uuid.toString();
-        String[] divided = uid.split("-");
-        return uid = divided[0];
+    public static LocalUniqueId randomInvoiceUniqueId() {
+        LocalUniqueId uniqueId = new LocalUniqueId(LocalUniqueId.__INVOICE__);
+        return uniqueId;
     }
 
     @Override

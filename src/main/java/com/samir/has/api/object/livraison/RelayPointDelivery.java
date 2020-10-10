@@ -1,34 +1,43 @@
 package com.samir.has.api.object.livraison;
 
-public class RelayPointDelivery implements Delivery {
-    int nbPointRelais;
-    private String mode = "livraison point relais ";
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
-    public String getMode() {
-        return mode+prix();
+@XmlRootElement
+public class RelayPointDelivery implements Delivery {
+
+    @XmlValue
+    private final String modeString = "RelayPointDelivery";
+    int relayPointNumber;
+
+    public RelayPointDelivery(){}
+
+    public RelayPointDelivery(int relayPointNumber) {
+        this.relayPointNumber = relayPointNumber;
     }
 
-    public RelayPointDelivery(int nbPointRelais) {
-        this.nbPointRelais = nbPointRelais;
+    public String getModeString() {
+        return modeString+ price();
     }
 
     @Override
-    public double prix() {
-        if(nbPointRelais >= 1 && nbPointRelais <= 22)
+    public double price() {
+        if(relayPointNumber >= 1 && relayPointNumber <= 22)
             return 0;
-        if(nbPointRelais >= 48)
+        if(relayPointNumber >= 48)
             return 4.99;
         return 2.99;
 
     }
 
     @Override
-    public void livrer() {
-
-    }
+    public void deliver() {}
 
     @Override
-    public void livrer(String adresse) {
+    public void deliver(String address) {}
 
+    @Override
+    public RelayPointDelivery getImplementedObject() {
+        return this;
     }
 }

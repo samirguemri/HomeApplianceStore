@@ -1,8 +1,9 @@
 package com.samir.has.api.object.livraison;
 
-public interface Delivery {
-    double prix();
-    String getMode();
-    void livrer ();
-    void livrer(String adresse);
+public interface Delivery<T extends Delivery > {
+    double price();
+    String getModeString();
+    void deliver();
+    void deliver(String address);
+    T getImplementedObject();
 }

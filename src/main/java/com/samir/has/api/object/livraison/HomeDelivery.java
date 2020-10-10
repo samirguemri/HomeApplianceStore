@@ -1,25 +1,33 @@
 package com.samir.has.api.object.livraison;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
+
+@XmlRootElement
 public class HomeDelivery implements Delivery {
-    private String mode = "livraison à domicile 4.99€";
+
+    @XmlValue
+    private final String modeString = "HomeDelivery";
 
     @Override
-    public String getMode() {
-        return mode;
+    public String getModeString() {
+        return modeString;
     }
 
     @Override
-    public double prix() {
+    public double price() {
         return 4.99;
     }
 
     @Override
-    public void livrer() {
-
-    }
+    public void deliver() {}
 
     @Override
-    public void livrer(String adresse) {
+    public void deliver(String address) {}
 
+    @Override
+    public HomeDelivery getImplementedObject() {
+        return this;
     }
+
 }

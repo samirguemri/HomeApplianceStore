@@ -1,7 +1,7 @@
 package com.samir.has.api.object.person;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.samir.has.api.object.Bill;
+import com.samir.has.api.object.Invoice;
 import com.samir.has.api.object.LocalUniqueId;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class Customer {
     @JsonProperty("address") private String address;
     @JsonProperty("zip") private String  zip;
     @JsonProperty("phoneNumber") private String phoneNumber;
-    @JsonProperty("billList") private List<Bill> billList;
+    @JsonProperty("billList") private List<Invoice> invoiceList;
     @JsonProperty("login") private String login;
     @JsonProperty("password") private String password;
 
@@ -32,6 +32,12 @@ public class Customer {
 
     public Customer() {
         this.customerId = LocalUniqueId.randomUniqueId();
+        this.name = "Unknown";
+        this.address = "Unknown";
+        this.zip = "Unknown";
+        this.phoneNumber = "Unknown";
+        this.login = "Unknown";
+        this.password = "Unknown";
     }
 
     @Override
@@ -42,7 +48,7 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", zip='" + zip + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", billList=" + billList +
+                ", billList=" + invoiceList +
                 '}';
     }
 
@@ -86,12 +92,12 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Bill> getBillList() {
-        return billList;
+    public List<Invoice> getBillList() {
+        return invoiceList;
     }
 
-    public void setBillList(List<Bill> billList) {
-        this.billList = billList;
+    public void setBillList(List<Invoice> invoiceList) {
+        this.invoiceList = invoiceList;
     }
 
     public String getLogin() {

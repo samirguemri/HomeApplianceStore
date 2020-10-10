@@ -11,6 +11,17 @@
     <div>
         <h2>Payment Process</h2>
     </div>
-    <a th:href="@{/basket/payment/bill}">Generate an Invoice</a>
+    <form action="#" th:action="@{/basket/payment/invoice}" method="post">
+        <input type="checkbox" id="1" name="delivery" value="home">
+        <label for="1"> Mode 1</label><br>
+        <input type="checkbox" id="2" name="delivery" value="chrono">
+        <label for="2"> Mode 2</label><br>
+        <input type="checkbox" id="3" name="delivery" value="relay">
+        <label for="3"> Mode 4</label><br>
+        <input type="checkbox" id="4" name="delivery" value="store">
+        <label for="4"> Mode 4</label><br><br>
+        <input type="hidden" name="totalCost" th:value="${totalCost}">
+        <input type="submit" value="Generate the Invoice"/>
+    </form>
 </body>
 </html>

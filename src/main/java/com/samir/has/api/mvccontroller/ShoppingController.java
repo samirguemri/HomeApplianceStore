@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,8 +32,12 @@ public class ShoppingController {
     }
 
     @GetMapping("/shopping")
-    public String storeHomePage(@ModelAttribute List<Product> productList, Model model){
-        model.addAttribute("productList",productList);
+    public String storeHomePageGET(Model model){
+        return "shop/store_home_page";
+    }
+
+    @PostMapping("/shopping")
+    public String storeHomePagePOST(Model model){
         return "shop/store_home_page";
     }
 
@@ -50,8 +51,8 @@ public class ShoppingController {
         return "shop/validate_basket";
     }
 
-    private double calculateTotalCost(Basket basket, List<Product> productList){
-        double total = 0;
+    private float calculateTotalCost(Basket basket, List<Product> productList){
+        float total = 0;
         for (Map.Entry<LocalUniqueId,Integer> entry : basket.entrySet()){
             double price = productList.stream()
                                     .filter(product -> product.getProductRef().equals(entry.getKey()))

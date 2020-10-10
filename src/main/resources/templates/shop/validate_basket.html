@@ -38,7 +38,10 @@
                 </tr>
             </tbody>
         </table>
-        <a th:href="@{/basket/payment}">Proceed to Payment</a>
+        <form th:action="@{/basket/payment}" method="post">
+            <input type="hidden" name="totalCost" th:value="${totalCost}">
+            <input type="submit" value="Proceed to Payment">
+        </form>
     </div>
 </body>
 </html>

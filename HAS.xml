@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<has>
+    <shopAddress> </shopAddress>
+    <administrators>
+        <pdg id=""></pdg>
+        <administrator id=""></administrator>
+        <administrator id=""></administrator>
+    </administrators>
+    <vendors>
+        <vendor id=""></vendor>
+        <vendor id=""></vendor>
+        <vendor id=""></vendor>
+        <vendor id=""></vendor>
+    </vendors>
+    <customers>
+        <customer id="">
+            <identity>
+                <name></name>
+                <adress></adress>
+                <zip></zip>
+            </identity>
+            <login>
+                <username></username>
+                <password></password>
+            </login>
+            <invoices>
+                <invoice ref="">
+                    <date></date>
+                    <customerIdentity>
+                        <name></name>
+                        <adress></adress>
+                        <zip></zip>
+                    </customerIdentity>
+                    <customerId></customerId>
+                    <items>
+                        <item>
+                            <productRef></product>
+                            <productDescription></productDescription>
+                            <productPrice></productPrice>
+                            <quantity></quantity>
+                            <itemPrice></itemPrice>
+                        </item>
+                    </items>
+                    <cost></cost>
+                </invoice>
+            </invoices>
+        </customer>
+    </customers>
+</has>
